@@ -169,7 +169,7 @@ def create_streamlit_app(llm, portfolio, clean_text):
         )
 
         st.markdown("### Portfolio Upload")
-        st.markdown("Upload your portfolio in CSV format with columns: Techstack, Links")
+        st.markdown("Upload your portfolio in CSV format with columns: Techstack, Links . NOTE : KEEP THE PORTFOLIO CONCISE")
         
         # File uploader
         uploaded_file = st.file_uploader("Choose a CSV file", type=['csv'], key="portfolio_upload")
