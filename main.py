@@ -223,12 +223,12 @@ filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#42047e", en
             st.markdown("""
             <div class="context-example">
             <strong>Context Reference:</strong>
-            Entity: Aditya
-            Role: Neural Integration Specialist
-            Base: AdityaTechLabs
-            Primary Function: AI & Software Integration
-            Mission: Facilitate neural network integration through quantum-enhanced tools
-            Objective: Establish communication protocols for potential collaborations
+            You are Aditya, a business development executive at AdityaTechLabs. AdityaTechLabs is an AI & Software Consulting company dedicated to facilitating
+            the seamless integration of business processes through automated tools. 
+            Over our experience, we have empowered numerous enterprises with tailored solutions, fostering scalability, 
+            process optimization, cost reduction, and heightened overall efficiency. 
+            Your job is to write a cold email to the client regarding the job mentioned above describing the capability of AdityaTechLabs 
+            in fulfilling their needs.
             </div>
             """, unsafe_allow_html=True)
 
@@ -257,7 +257,7 @@ filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#42047e", en
                 else:
                     st.success("Portfolio Successfully Integrated!")
                     
-                    st.markdown("###Portfolio Preview")
+                    st.markdown("### Portfolio Preview")
                     edited_df = st.data_editor(
                         df,
                         num_rows="dynamic",
@@ -287,7 +287,7 @@ Angular | .NET | SQL Server,https://example.com/angular-portfolio"""
     # Transmission Generator Tab
     with tab2:
         if not st.session_state.context:
-            st.error("Error: Entity Parameters Not Initialized!")
+            st.error("Error: Context Not Initialized!")
             st.stop()
             
         if st.session_state.portfolio_data is None:
@@ -303,7 +303,7 @@ Angular | .NET | SQL Server,https://example.com/angular-portfolio"""
             print(f"Quantum Trace:\n{error_details}")
 
         url_input = st.text_input(
-            "Target Signal Coordinates", 
+            "Target WebPage URL", 
             placeholder="Input Job page URL",
             help="Initialize target web page URL"
         )
