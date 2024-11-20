@@ -257,7 +257,7 @@ filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#42047e", en
                 else:
                     st.success("Portfolio Successfully Integrated!")
                     
-                    st.markdown("###Portfolio Preview")
+                    st.markdown("### Portfolio Preview")
                     edited_df = st.data_editor(
                         df,
                         num_rows="dynamic",
