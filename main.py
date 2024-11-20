@@ -257,7 +257,7 @@ filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#42047e", en
                 else:
                     st.success("Portfolio Successfully Integrated!")
                     
-                    st.markdown("### Portfolio Preview")
+                    st.markdown("###Portfolio Preview")
                     edited_df = st.data_editor(
                         df,
                         num_rows="dynamic",
@@ -287,7 +287,7 @@ Angular | .NET | SQL Server,https://example.com/angular-portfolio"""
     # Transmission Generator Tab
     with tab2:
         if not st.session_state.context:
-            st.error("Error: Context Not Initialized!")
+            st.error("Error: Entity Parameters Not Initialized!")
             st.stop()
             
         if st.session_state.portfolio_data is None:
@@ -303,7 +303,7 @@ Angular | .NET | SQL Server,https://example.com/angular-portfolio"""
             print(f"Quantum Trace:\n{error_details}")
 
         url_input = st.text_input(
-            "Target WebPage URL", 
+            "Target Signal Coordinates", 
             placeholder="Input Job page URL",
             help="Initialize target web page URL"
         )
@@ -313,23 +313,46 @@ Angular | .NET | SQL Server,https://example.com/angular-portfolio"""
         if generate_email_button:
             if not url_input:
                 st.error("Error: Target Web Page URL Required!")
-            else:
-                try:
-                    with st.spinner('Initializing Cold Email Protocol...'):
-                        loader = WebBaseLoader([url_input])
-                        data = clean_text(loader.load().pop().page_content)
-                        jobs = llm.extract_jobs(data)
-                        
-                        for job in jobs:
-                            skills = job.get('skills', [])
-                            links = portfolio.query_links(skills)
-                            email = llm.write_mail(job, links, st.session_state.context)
-                            
-                            st.markdown(f"### 📡 Synthesized Cold Email")
-                            st.code(email, language='markdown')
+        else:
+            try:
+                with st.spinner('Initializing Cold Email Protocol...'):
+                    loader = WebBaseLoader([url_input])
+                    data = clean_text(loader.load().pop().page_content)
                 
-                except Exception as e:
-                    st.error(f"Quantum Synthesis Error: {e}")
+                # Add logging/print to verify data extraction
+                print("Extracted Job Data:", data)
+                
+                jobs = llm.extract_jobs(data)
+                
+                # Add logging/print to verify job extraction
+                print("Extracted Jobs:", jobs)
+                
+                if not jobs:
+                    st.warning("No jobs could be extracted from the provided URL.")
+                
+                for job in jobs:
+                    skills = job.get('skills', [])
+                    
+                    # Add logging for skills
+                    print("Job Skills:", skills)
+                    
+                    links = portfolio.query_links(skills)
+                    
+                    # Add logging for links
+                    print("Matching Portfolio Links:", links)
+                    
+                    email = llm.write_mail(job, links, st.session_state.context)
+                    
+                    # Add logging for email generation
+                    print("Generated Email:", email)
+                    
+                    st.markdown(f"### 📡 Synthesized Cold Email")
+                    st.code(email, language='markdown')
+        
+            except Exception as e:
+            # More detailed error tracing
+                st.error(f"Quantum Synthesis Error: {e}")
+            st.error(traceback.format_exc())
 
 if __name__ == "__main__":
     llm = Chain()
