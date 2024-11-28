@@ -1,20 +1,31 @@
 import os
+import json
 import requests
 import warnings
 import logging
 import streamlit as st
 from langchain.globals import set_verbose, get_verbose
 import pandas as pd
-import csv
-import io
+import traceback
 from langchain_community.document_loaders import WebBaseLoader
 from chains import Chain
 from portfolio import Portfolio
 from utils import clean_text
-import re
 from urllib.parse import urlparse
-import traceback
-import chromadb
+
+
+def load_api_key():
+    try:
+        with open('config.json', 'r') as config_file:
+            config = json.load(config_file)
+        return config.get("GROQ_API_KEY", "")
+    except Exception as e:
+        logging.error(f"Error loading API key: {e}")
+        return ""
+
+GROQ_API_KEY = load_api_key()
+if not GROQ_API_KEY:
+    raise ValueError("API key not found in config.json. Please ensure the file is properly configured.")
 
 # Initial setup remains the same
 logging.basicConfig(level=logging.INFO)
