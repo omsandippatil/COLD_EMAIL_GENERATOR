@@ -303,7 +303,7 @@ Angular | .NET | SQL Server,https://example.com/angular-portfolio"""
             print(f"Quantum Trace:\n{error_details}")
 
         url_input = st.text_input(
-            "Target Signal Coordinates", 
+            "Target Webpage URL", 
             placeholder="Input Job page URL",
             help="Initialize target web page URL"
         )
