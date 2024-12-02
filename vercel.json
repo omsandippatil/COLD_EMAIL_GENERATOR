@@ -1,7 +1,7 @@
 {
   "version": 2,
   "env": {
-    "GROQ_API_KEY": "@groq_api_key"
+    "GROQ_API_KEY": "@GROQ_SECRET"
   },
   "builds": [
     {
