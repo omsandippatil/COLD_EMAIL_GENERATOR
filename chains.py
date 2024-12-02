@@ -19,7 +19,6 @@ class Chain:
         # Import textwrap to handle text truncation
         max_length = 4000  # Adjust based on model's context window
         truncated_text = textwrap.shorten(cleaned_text, width=max_length, placeholder="...")
-
         prompt_extract = PromptTemplate.from_template(
             """
             ### SCRAPED TEXT FROM WEBSITE:
@@ -55,7 +54,6 @@ class Chain:
             """
             ### JOB DESCRIPTION:
             {job_description}
-
             ### INSTRUCTION:
             {context}
             Also add the most relevant ones from the following links to showcase the portfolio: {link_list}
