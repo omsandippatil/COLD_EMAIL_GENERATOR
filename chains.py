@@ -1,36 +1,19 @@
 import os
-import json
-import logging
 from langchain_groq import ChatGroq
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.exceptions import OutputParserException
+from dotenv import load_dotenv
 import textwrap
 
-
-def load_api_key():
-    """
-    Load the GROQ API key from a config.json file.
-    """
-    try:
-        with open("config.json", "r") as config_file:
-            config = json.load(config_file)
-            return config.get("GROQ_API_KEY", "")
-    except FileNotFoundError:
-        logging.error("config.json file not found.")
-    except json.JSONDecodeError:
-        logging.error("Error decoding config.json file.")
-    return ""
-
+load_dotenv()
 
 class Chain:
     def __init__(self):
-        self.llm = ChatGroq(
-            temperature=0, 
-            groq_api_key=load_api_key(), 
-            model_name="llama3-8b-8192"
-        )
-
+        self.llm = ChatGroq(temperature=0, groq_api_key=os.getenv("GROQ_API_KEY"), model_name="llama3-8b-8192")
+        
+        # Default context is now None to force context input
+        self.default_context = None
 
     def extract_jobs(self, cleaned_text):
         # Import textwrap to handle text truncation
